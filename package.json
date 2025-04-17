@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "postinstall": "npx husky install"
+        "postinstall": "npx husky install",
+        "start:dev": "nodemon ./index.js localhost: 3000"
     },
     "keywords": [],
     "author": "",
@@ -17,8 +18,13 @@
         "eslint-plugin-jsonc": "^2.20.0"
     },
     "dependencies": {
+        "dotenv": "^16.5.0",
+        "eslint-config-prettier": "^10.1.2",
+        "express": "^5.1.0",
         "git-commit-msg-linter": "^5.0.8",
         "husky": "^8.0.3",
-        "lint-staged": "^15.5.1"
+        "lint-staged": "^15.5.1",
+        "nodemon": "^3.1.9",
+        "pg": "^8.14.1"
     }
 }
