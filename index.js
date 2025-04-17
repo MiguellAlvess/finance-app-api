@@ -1,4 +1,4 @@
-import 'dotenv/config.js'
+import 'dotenv/config' // ✅ Corrigido
 import express from 'express'
 import { PostgresHelper } from './src/db/postgres/helper.js'
 
