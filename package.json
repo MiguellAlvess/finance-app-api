@@ -17,6 +17,7 @@
         "eslint-plugin-jsonc": "^2.20.0"
     },
     "dependencies": {
+        "git-commit-msg-linter": "^5.0.8",
         "husky": "^8.0.3",
         "lint-staged": "^15.5.1"
     }
