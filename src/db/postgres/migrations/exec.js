@@ -1,22 +1,11 @@
-import dotenv from 'dotenv'
+import 'dotenv/config'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { pool } from '../helper.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-
-dotenv.config({ path: path.resolve(__dirname, '../../../../.env') })
-
-console.log('ENV VARS:', {
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    host: process.env.POSTGRES_HOST,
-    port: process.env.POSTGRES_PORT,
-    database: process.env.POSTGRES_DB,
-})
-
-import { pool } from '../helper.js'
 
 const execMigrations = async () => {
     const client = await pool.connect()
