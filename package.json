@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "postinstall": "npx husky install",
-        "start:dev": "nodemon ./index.js localhost: 3000",
+        "start:dev": "node --watch index.js",
         "migrations": "node src/db/postgres/migrations/exec.js"
     },
     "keywords": [],
@@ -26,8 +26,8 @@
         "git-commit-msg-linter": "^5.0.8",
         "husky": "^8.0.3",
         "lint-staged": "^15.5.1",
-        "nodemon": "^3.1.9",
         "pg": "^8.14.1",
-        "uuid": "^11.1.0"
+        "uuid": "^11.1.0",
+        "validator": "^13.15.0"
     }
 }
