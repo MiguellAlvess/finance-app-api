@@ -1,3 +1,3 @@
-export * from './create-user'
-export * from './update-user'
-export * from './get-user-by-id'
+export * from './create-user.js'
+export * from './update-user.js'
+export * from './get-user-by-id.js'
