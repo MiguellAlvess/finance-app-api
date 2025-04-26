@@ -1,3 +1,8 @@
+# Dependencies
 node_modules
-.postgres
+
+# Postgres volume
+.postgres-data
+
+# Environment variables
 .env
