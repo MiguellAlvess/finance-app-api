@@ -10,7 +10,7 @@ export class PostgresGetUserBalanceRepository {
 	        SUM(CASE WHEN type = 'INVESTMENT' THEN AMOUNT ELSE 0 END) AS investments,
 
             (
-                SUM(CASE WHEN type = 'INVESTMENT' THEN AMOUNT ELSE 0 END) 
+                SUM(CASE WHEN type = 'EARNING' THEN AMOUNT ELSE 0 END) 
 	            - SUM(CASE WHEN type = 'EXPENSE' THEN amount ELSE 0 END) 
 	            - SUM(CASE WHEN type = 'INVESTMENT' THEN AMOUNT ELSE 0 END)
             ) AS balance 
