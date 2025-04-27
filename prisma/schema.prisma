@@ -16,7 +16,7 @@ model User {
   last_name String @db.VarChar(50)
   email String @db.VarChar(100) @unique
   password String @db.VarChar(100)
-  transactios Transaction[]
+  transactions Transaction[]
 }
 
 model Transaction {
