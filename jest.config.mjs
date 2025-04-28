@@ -8,6 +8,8 @@ const config = {
     coverageDirectory: 'coverage',
 
     coverageProvider: 'v8',
+
+    watchPathIgnorePatterns: ['<rootDir>/.postgres-data'],
 }
 
 export default config
