@@ -93,4 +93,72 @@ describe('Create User Controller', () => {
 
         expect(result.statusCode).toBe(400)
     })
+
+    it('should return 400 if email is not valid', async () => {
+        // arrange
+        const createUserUseCase = new CreateUserUseCaseStuby()
+        const createUserController = new CreateUserController(createUserUseCase)
+
+        const httpRequest = {
+            body: {
+                first_name: 'Miguel',
+                last_name: 'Alves',
+                email: 'miguel.com',
+                password: '1234567',
+            },
+        }
+
+        // act
+
+        const result = await createUserController.execute(httpRequest)
+
+        // assert
+
+        expect(result.statusCode).toBe(400)
+    })
+
+    it('should return 400 if password is not provided', async () => {
+        // arrange
+        const createUserUseCase = new CreateUserUseCaseStuby()
+        const createUserController = new CreateUserController(createUserUseCase)
+
+        const httpRequest = {
+            body: {
+                first_name: 'Miguel',
+                last_name: 'Alves',
+                email: 'miguel@gmail.com',
+            },
+        }
+
+        // act
+
+        const result = await createUserController.execute(httpRequest)
+
+        // assert
+
+        expect(result.statusCode).toBe(400)
+    })
+
+    it('should return 400 if password is less than 6 characters', async () => {
+        // arrange
+        const createUserUseCase = new CreateUserUseCaseStuby()
+        const createUserController = new CreateUserController(createUserUseCase)
+
+        const httpRequest = {
+            body: {
+                first_name: 'Miguel',
+                last_name: 'Alves',
+                email: 'miguel@gmail.com',
+                password: '123',
+            },
+        }
+
+        // act
+
+        const result = await createUserController.execute(httpRequest)
+
+        // assert
+
+        expect(result.statusCode).toBe(400)
+    })
 })
