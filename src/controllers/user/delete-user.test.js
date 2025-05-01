@@ -2,7 +2,7 @@ import { DeleteUserController } from './delete-user.js'
 import { faker } from '@faker-js/faker'
 
 describe('Delete User Controller', () => {
-    class DeleteUserUseCaseStuby {
+    class DeleteUserUseCaseStub {
         async execute() {
             return {
                 id: faker.string.uuid(),
@@ -17,7 +17,7 @@ describe('Delete User Controller', () => {
     }
 
     const makeSut = () => {
-        const deleteUserUseCase = new DeleteUserUseCaseStuby()
+        const deleteUserUseCase = new DeleteUserUseCaseStub()
         const sut = new DeleteUserController(deleteUserUseCase)
         return { deleteUserUseCase, sut }
     }

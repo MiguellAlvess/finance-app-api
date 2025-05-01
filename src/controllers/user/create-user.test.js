@@ -2,14 +2,14 @@ import { faker } from '@faker-js/faker'
 import { CreateUserController } from './create-user.js'
 import { EmailAlreadyInUseError } from '../../errors/user.js'
 describe('Create User Controller', () => {
-    class CreateUserUseCaseStuby {
+    class CreateUserUseCaseStub {
         async execute(user) {
             return user
         }
     }
 
     const makeSut = () => {
-        const createUserUseCase = new CreateUserUseCaseStuby()
+        const createUserUseCase = new CreateUserUseCaseStub()
         const sut = new CreateUserController(createUserUseCase)
         return { createUserUseCase, sut }
     }
