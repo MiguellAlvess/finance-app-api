@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { CreateTransactionController } from './create-transaction.js'
+
 describe('Create Transaction Controller', () => {
     class CreateTransactionUseCaseStub {
         async execute(transaction) {
@@ -182,5 +183,19 @@ describe('Create Transaction Controller', () => {
 
         // assert
         expect(response.statusCode).toBe(400)
+    })
+
+    it('should return 500 when CreateTransactionUseCase throws', async () => {
+        // arrange
+        const { sut, createTransactionUseCase } = makeSut()
+        jest.spyOn(createTransactionUseCase, 'execute').mockRejectedValueOnce(
+            new Error(),
+        )
+
+        // act
+        const response = await sut.execute(baseHttpRequest)
+
+        // assert
+        expect(response.statusCode).toBe(500)
     })
 })
