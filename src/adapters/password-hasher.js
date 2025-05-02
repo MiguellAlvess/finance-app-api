@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 
 export class PasswordHasherAdapter {
-    async cryptograph(password) {
-        await bcrypt.execute(password, 10)
+    execute(password) {
+        return bcrypt.hash(password, 10)
     }
 }
