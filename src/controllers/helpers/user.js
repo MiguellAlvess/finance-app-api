@@ -1,9 +1,4 @@
-import { badRequest, notFound } from './http.js'
-
-export const emailIsAlreadyInUseResponse = () =>
-    badRequest({
-        message: 'Invalid e-mail. Please provide a valid one',
-    })
+import { notFound } from './http.js'
 
 export const userNotFoundResponse = () =>
     notFound({
