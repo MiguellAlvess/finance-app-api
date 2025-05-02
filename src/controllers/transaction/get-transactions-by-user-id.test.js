@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { GetTransactionsByUserIdController } from './get-transactions-by-user-id.js'
+import { UserNotFoundError } from '../../errors/user.js'
 
 describe('Get Transactions By User ID', () => {
     class GetTransactionsByUserIdUseCaseStub {
@@ -40,21 +41,21 @@ describe('Get Transactions By User ID', () => {
 
         // assert
         expect(response.statusCode).toBe(200)
-    }),
-        it('should return 400 when missing userId param', async () => {
-            // arrange
-            const { sut } = makeSut()
+    })
+    it('should return 400 when missing userId param', async () => {
+        // arrange
+        const { sut } = makeSut()
 
-            // act
-            const response = await sut.execute({
-                query: {
-                    userId: undefined,
-                },
-            })
-
-            // assert
-            expect(response.statusCode).toBe(400)
+        // act
+        const response = await sut.execute({
+            query: {
+                userId: undefined,
+            },
         })
+
+        // assert
+        expect(response.statusCode).toBe(400)
+    })
 
     it('should return 400 when missing userId param is invalid', async () => {
         // arrange
@@ -69,5 +70,24 @@ describe('Get Transactions By User ID', () => {
 
         // assert
         expect(response.statusCode).toBe(400)
+    })
+
+    it('should return 404 GetTransactionsByUserIdUseCase throws UserNotFoundError', async () => {
+        // arrange
+        const { sut, getTransactionsByUserIdUseCase } = makeSut()
+        jest.spyOn(
+            getTransactionsByUserIdUseCase,
+            'execute',
+        ).mockRejectedValueOnce(new UserNotFoundError())
+
+        // act
+        const response = await sut.execute({
+            query: {
+                userId: faker.string.uuid(),
+            },
+        })
+
+        // assert
+        expect(response.statusCode).toBe(404)
     })
 })
