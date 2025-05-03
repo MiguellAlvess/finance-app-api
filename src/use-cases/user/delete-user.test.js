@@ -17,12 +17,12 @@ describe('Delete User Use Case', () => {
     }
 
     const makeSut = () => {
-        const deleteUserRepositoryStub = new DeleteUserRepositoryStub()
-        const sut = new DeleteUserUseCase(deleteUserRepositoryStub)
+        const deleteUserRepository = new DeleteUserRepositoryStub()
+        const sut = new DeleteUserUseCase(deleteUserRepository)
 
         return {
             sut,
-            deleteUserRepositoryStub,
+            deleteUserRepository,
         }
     }
 
@@ -39,8 +39,8 @@ describe('Delete User Use Case', () => {
 
     it('should call DeleteUserRepository with correct params', async () => {
         // arrange
-        const { sut, deleteUserRepositoryStub } = makeSut()
-        const deleteUserSpy = jest.spyOn(deleteUserRepositoryStub, 'execute')
+        const { sut, deleteUserRepository } = makeSut()
+        const deleteUserSpy = jest.spyOn(deleteUserRepository, 'execute')
         const userId = faker.string.uuid()
 
         // act
@@ -48,5 +48,19 @@ describe('Delete User Use Case', () => {
 
         // asset
         expect(deleteUserSpy).toHaveBeenCalledWith(userId)
+    })
+
+    it('should throw if DeleteUserRepository throws', async () => {
+        // arrange
+        const { sut, deleteUserRepository } = makeSut()
+        jest.spyOn(deleteUserRepository, 'execute').mockRejectedValueOnce(
+            new Error(),
+        )
+
+        // act
+        const promise = sut.execute(faker.string.uuid())
+
+        // asssert
+        await expect(promise).rejects.toThrow()
     })
 })
