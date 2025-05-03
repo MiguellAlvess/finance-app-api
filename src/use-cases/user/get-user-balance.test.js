@@ -64,4 +64,17 @@ describe('Get User Balance Use Case', () => {
         // assert
         await expect(promise).rejects.toThrow(new UserNotFoundError(userId))
     })
+
+    it('should call GetUserByIdRepository with correct params', async () => {
+        // arrange
+        const { sut, getUserByIdRepository } = makeSut()
+        const getUserByIdSpy = jest.spyOn(getUserByIdRepository, 'execute')
+        const userId = faker.string.uuid()
+
+        // act
+        await sut.execute(userId)
+
+        // assert
+        expect(getUserByIdSpy).toHaveBeenCalledWith(userId)
+    })
 })
