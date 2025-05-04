@@ -2,11 +2,11 @@ import { UserNotFoundError } from '../../errors/user.js'
 
 export class CreateTransactionUseCase {
     constructor(
-        transactionRepository,
+        createTransactionRepository,
         getUserByIdRepository,
         idGeneratorAdapter,
     ) {
-        this.transactionRepository = transactionRepository
+        this.createTransactionRepository = createTransactionRepository
         this.getUserByIdRepository = getUserByIdRepository
         this.idGeneratorAdapter = idGeneratorAdapter
     }
@@ -22,7 +22,7 @@ export class CreateTransactionUseCase {
 
         const transactionId = this.idGeneratorAdapter.execute()
 
-        const transaction = await this.transactionRepository.execute({
+        const transaction = await this.createTransactionRepository.execute({
             ...createTransactionParams,
             id: transactionId,
         })
