@@ -1,18 +1,11 @@
+import { user } from '../../tests/index.js'
 import { GetUserByIdController } from './get-user-by-id.js'
 import { faker } from '@faker-js/faker'
 
 describe('Get User By Id Controller', () => {
     class GetUserByIdUseCaseStub {
         async execute() {
-            return {
-                id: faker.string.uuid(),
-                first_name: faker.person.firstName(),
-                last_name: faker.person.lastName(),
-                email: faker.internet.email(),
-                password: faker.internet.password({
-                    length: 6,
-                }),
-            }
+            return user
         }
     }
 
