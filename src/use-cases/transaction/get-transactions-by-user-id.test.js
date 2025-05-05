@@ -1,17 +1,9 @@
 import { faker } from '@faker-js/faker'
 import { GetTransactionsByUserIdUseCase } from './get-transactions-by-user-id.js'
 import { UserNotFoundError } from '../../errors/user.js'
+import { user } from '../../tests/index.js'
 
 describe('Get Transactions By User Id Use Case', () => {
-    const user = {
-        id: faker.string.uuid(),
-        first_name: faker.person.firstName(),
-        last_name: faker.person.lastName(),
-        email: faker.internet.email(),
-        password: faker.internet.password({
-            length: 6,
-        }),
-    }
     class GetUserByIdRepositoryStub {
         async execute() {
             return user
