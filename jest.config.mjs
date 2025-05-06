@@ -12,6 +12,8 @@ const config = {
     collectCoverageFrom: ['src/**/*.js'],
 
     watchPathIgnorePatterns: ['<rootDir>/.postgres-data'],
+
+    globalSetup: '<rootDir>/jest.global-setup.mjs',
 }
 
 export default config
