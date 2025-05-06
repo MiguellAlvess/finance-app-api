@@ -13,4 +13,17 @@ describe('Delete User Repository', () => {
 
         expect(result).toStrictEqual(user)
     })
+
+    it('should call prisma with correct params', async () => {
+        const sut = new PostgresDeleteUserRepository()
+        const prismaSpy = jest.spyOn(prisma.user, 'delete')
+
+        await sut.execute(user.id)
+
+        expect(prismaSpy).toHaveBeenCalledWith({
+            where: {
+                id: user.id,
+            },
+        })
+    })
 })
