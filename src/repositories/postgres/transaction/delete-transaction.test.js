@@ -28,4 +28,18 @@ describe('Delete Transaction Repository', () => {
         expect(dayjs(result.date).month()).toBe(dayjs(transaction.date).month())
         expect(dayjs(result.date).year()).toBe(dayjs(transaction.date).year())
     })
+
+    it('should call Prisma with correct params', async () => {
+        // arrange
+        const prismaSpy = jest.spyOn(prisma.transaction, 'delete')
+        const sut = new PostgresDeleteTransactionRepository()
+
+        // act
+        await sut.execute(transaction.id)
+
+        // assert
+        expect(prismaSpy).toHaveBeenCalledWith({
+            where: { id: transaction.id },
+        })
+    })
 })
