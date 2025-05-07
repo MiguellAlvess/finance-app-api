@@ -1,13 +1,13 @@
 import { prisma } from '../../../../prisma/prisma.js'
 import { PostgresDeleteTransactionRepository } from './delete-transaction.js'
-import { transaction, user as fakeUser } from '../../../tests/index.js'
+import { transaction, user } from '../../../tests/index.js'
 import dayjs from 'dayjs'
 
 describe('Delete Transaction Repository', () => {
     it('should delete a transaction on db', async () => {
         // arrange
-        const user = await prisma.user.create({
-            data: fakeUser,
+        await prisma.user.create({
+            data: user,
         })
         await prisma.transaction.create({
             data: { ...transaction, user_id: user.id },
@@ -31,6 +31,12 @@ describe('Delete Transaction Repository', () => {
 
     it('should call Prisma with correct params', async () => {
         // arrange
+        await prisma.user.create({
+            data: user,
+        })
+        await prisma.transaction.create({
+            data: { ...transaction, user_id: user.id },
+        })
         const prismaSpy = jest.spyOn(prisma.transaction, 'delete')
         const sut = new PostgresDeleteTransactionRepository()
 
@@ -41,5 +47,19 @@ describe('Delete Transaction Repository', () => {
         expect(prismaSpy).toHaveBeenCalledWith({
             where: { id: transaction.id },
         })
+    })
+
+    it('should throw generic error if Prisma throws generic error', async () => {
+        // arrange
+        const sut = new PostgresDeleteTransactionRepository()
+        jest.spyOn(prisma.transaction, 'delete').mockRejectedValueOnce(
+            new Error(),
+        )
+
+        // act
+        const promise = sut.execute(transaction.id)
+
+        // assert
+        await expect(promise).rejects.toThrow()
     })
 })
