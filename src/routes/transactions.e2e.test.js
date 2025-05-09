@@ -129,4 +129,12 @@ describe('Transactions Routes E2E Tests', () => {
 
         expect(response.status).toBe(404)
     })
+
+    it('GET /api/transactions?userId should return 404 when fetching transactions of a non-existent user', async () => {
+        const response = await supertest(app).get(
+            `/api/transactions?userId=${faker.string.uuid()}`,
+        )
+
+        expect(response.status).toBe(404)
+    })
 })
