@@ -165,4 +165,16 @@ describe('User Routes E2E Tests', () => {
 
         expect(response.status).toBe(400)
     })
+
+    it('POST /api/users should return 400 when the provided password is invalid', async () => {
+        const response = await supertest(app)
+            .post('/api/users')
+            .send({
+                ...user,
+                id: undefined,
+                password: faker.internet.password({ length: 5 }),
+            })
+
+        expect(response.status).toBe(400)
+    })
 })
