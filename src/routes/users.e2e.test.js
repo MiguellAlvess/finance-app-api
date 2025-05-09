@@ -72,4 +72,49 @@ describe('User Routes E2E Tests', () => {
         expect(response.status).toBe(200)
         expect(response.body).toEqual(createdUser)
     })
+
+    it('GET /api/users/:userId/balance should return 200 and correct balance', async () => {
+        const { body: createdUser } = await supertest(app)
+            .post('/api/users')
+            .send({
+                ...user,
+                id: undefined,
+            })
+
+        await supertest(app).post('/api/transactions').send({
+            user_id: createdUser.id,
+            name: faker.commerce.productName(),
+            date: faker.date.anytime().toISOString(),
+            type: 'EARNING',
+            amount: 10000,
+        })
+
+        await supertest(app).post('/api/transactions').send({
+            user_id: createdUser.id,
+            name: faker.commerce.productName(),
+            date: faker.date.anytime().toISOString(),
+            type: 'EXPENSE',
+            amount: 2000,
+        })
+
+        await supertest(app).post('/api/transactions').send({
+            user_id: createdUser.id,
+            name: faker.commerce.productName(),
+            date: faker.date.anytime().toISOString(),
+            type: 'INVESTMENT',
+            amount: 2000,
+        })
+
+        const response = await supertest(app).get(
+            `/api/users/${createdUser.id}/balance`,
+        )
+
+        expect(response.status).toBe(200)
+        expect(response.body).toEqual({
+            balance: '6000',
+            earnings: '10000',
+            expenses: '2000',
+            investments: '2000',
+        })
+    })
 })
