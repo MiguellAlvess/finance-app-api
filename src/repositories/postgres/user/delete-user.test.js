@@ -51,7 +51,7 @@ describe('Delete User Repository', () => {
     it('should throw UserNotFoundError if Prisma throws P2025 error', async () => {
         // arrange
         const sut = new PostgresDeleteUserRepository()
-        jest.spyOn(prisma.transaction, 'delete').mockRejectedValueOnce({
+        jest.spyOn(prisma.user, 'delete').mockRejectedValueOnce({
             name: 'PrismaClientKnownRequestError',
             code: 'P2025',
         })
