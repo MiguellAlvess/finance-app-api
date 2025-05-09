@@ -10,9 +10,6 @@ export class PostgresDeleteUserRepository {
                 },
             })
         } catch (error) {
-            for (const [key, value] of Object.entries(error)) {
-                console.log(`${key}:`, value)
-            }
             if (error.name === 'PrismaClientKnownRequestError') {
                 // P2025 -> An operation failed because it depends on one or more records that were required but not found. {cause}
                 if (error.code === 'P2025') {
