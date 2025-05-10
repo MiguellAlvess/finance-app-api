@@ -314,6 +314,39 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "tags": ["Transactions"],
+                "summary": "Delete transaction by ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "transactionId",
+                        "required": true,
+                        "type": "string",
+                        "description": "ID of the transaction to delete"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transaction deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Transaction"
+                        }
+                    },
+                    "404": {
+                        "description": "Transaction not found",
+                        "schema": {
+                            "$ref": "#/definitions/TransactionNotFoundErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
             }
         }
     },
@@ -369,19 +402,23 @@
             "properties": {
                 "first_name": {
                     "type": "string",
-                    "example": "Miguel"
+                    "example": "Miguel",
+                    "required": true
                 },
                 "last_name": {
                     "type": "string",
-                    "example": "Alves"
+                    "example": "Alves",
+                    "required": true
                 },
                 "email": {
                     "type": "string",
-                    "example": "miguel.teste@gmail.com"
+                    "example": "miguel.teste@gmail.com",
+                    "required": true
                 },
                 "password": {
                     "type": "string",
-                    "example": "password"
+                    "example": "password",
+                    "required": true
                 }
             }
         },
@@ -429,24 +466,29 @@
             "properties": {
                 "user_id": {
                     "type": "string",
-                    "example": "07e7ff3a-4222-4fd5-ad46-b7179d5aad98"
+                    "example": "07e7ff3a-4222-4fd5-ad46-b7179d5aad98",
+                    "required": true
                 },
                 "name": {
                     "type": "string",
-                    "example": "Salary"
+                    "example": "Salary",
+                    "required": true
                 },
                 "amount": {
                     "type": "number",
-                    "example": 1000
+                    "example": 1000,
+                    "required": true
                 },
                 "type": {
                     "type": "string",
                     "example": "EARNING",
-                    "description": "EARNING, EXPENSE, INVESTMENT"
+                    "description": "EARNING, EXPENSE, INVESTMENT",
+                    "required": true
                 },
                 "date": {
                     "type": "string",
-                    "example": "2025-04-27T17:42:22.699Z"
+                    "example": "2025-04-27T17:42:22.699Z",
+                    "required": true
                 }
             }
         },
