@@ -17,9 +17,6 @@
     "license": "ISC",
     "description": "",
     "devDependencies": {
-        "@babel/cli": "^7.27.0",
-        "@babel/core": "^7.26.10",
-        "@babel/preset-env": "^7.26.9",
         "@eslint/json": "^0.11.0",
         "@faker-js/faker": "^9.7.0",
         "@types/jest": "^29.5.14",
