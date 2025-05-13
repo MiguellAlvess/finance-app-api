@@ -7,7 +7,7 @@
         "test": "dotenv -e .env.test -- node --experimental-vm-modules node_modules/jest/bin/jest.js --passWithNoTests --silent --runInBand --detectOpenHandles --forceExit",
         "test:watch": "npm run test -- --watch --runInBand",
         "test:coverage": "npm run test -- --coverage",
-        "postinstall": "husky install && prisma generate",
+        "postinstall": "husky && prisma generate",
         "start:dev": "node --watch index.js",
         "eslint:check": "eslint src",
         "prettier:check": "prettier --check src"
@@ -37,7 +37,7 @@
         "express": "^5.1.0",
         "git-commit-msg-linter": "^5.0.8",
         "globals": "^16.1.0",
-        "husky": "^8.0.3",
+        "husky": "^9.1.7",
         "lint-staged": "^16.0.0",
         "swagger-ui-express": "^5.0.1",
         "uuid": "^11.1.0",
