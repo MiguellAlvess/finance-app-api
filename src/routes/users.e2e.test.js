@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import { app } from '../app.js'
+import { app } from '../app.cjs'
 import { user } from '../tests/index.js'
 import { faker } from '@faker-js/faker'
 
