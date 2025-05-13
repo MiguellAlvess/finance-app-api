@@ -16,7 +16,7 @@ describe('Get User By Id Repository', () => {
 
     it('should call Prisma with correct params', async () => {
         const sut = new PostgresGetUserByIdRepository()
-        const prismaSpy = jest.spyOn(prisma.user, 'findUnique')
+        const prismaSpy = import.meta.jest.spyOn(prisma.user, 'findUnique')
 
         await sut.execute(fakeUser.id)
 
@@ -30,7 +30,9 @@ describe('Get User By Id Repository', () => {
     it('should throw if prisma throws', async () => {
         // arrange
         const sut = new PostgresGetUserByIdRepository()
-        jest.spyOn(prisma.user, 'findUnique').mockRejectedValueOnce(new Error())
+        import.meta.jest
+            .spyOn(prisma.user, 'findUnique')
+            .mockRejectedValueOnce(new Error())
 
         // act
         const promise = sut.execute(fakeUser.id)

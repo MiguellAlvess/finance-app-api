@@ -112,9 +112,9 @@ describe('Update User Controller', () => {
     it('should return 500 if UpdateUserUseCase throws', async () => {
         // arrange
         const { sut, updateUserUseCase } = makeSut()
-        jest.spyOn(updateUserUseCase, 'execute').mockRejectedValueOnce(
-            new Error(),
-        )
+        import.meta.jest
+            .spyOn(updateUserUseCase, 'execute')
+            .mockRejectedValueOnce(new Error())
 
         // act
         const result = await sut.execute(httpRequest)
@@ -126,9 +126,11 @@ describe('Update User Controller', () => {
     it('should return 400 if UpdateUserUseCase throws EmailAlreadyInUseError', async () => {
         // arrange
         const { sut, updateUserUseCase } = makeSut()
-        jest.spyOn(updateUserUseCase, 'execute').mockRejectedValueOnce(
-            new EmailAlreadyInUseError(faker.internet.email()),
-        )
+        import.meta.jest
+            .spyOn(updateUserUseCase, 'execute')
+            .mockRejectedValueOnce(
+                new EmailAlreadyInUseError(faker.internet.email()),
+            )
 
         // act
         const result = await sut.execute(httpRequest)
@@ -139,7 +141,7 @@ describe('Update User Controller', () => {
     it('should call UpdateUserUseCase with correct values', async () => {
         // arrange
         const { sut, updateUserUseCase } = makeSut()
-        const executeSpy = jest.spyOn(updateUserUseCase, 'execute')
+        const executeSpy = import.meta.jest.spyOn(updateUserUseCase, 'execute')
 
         // act
         await sut.execute(httpRequest)
@@ -153,9 +155,9 @@ describe('Update User Controller', () => {
     it('should return 400 if UpdateUserUseCase throws UserNotFoundError', async () => {
         // arrange
         const { sut, updateUserUseCase } = makeSut()
-        jest.spyOn(updateUserUseCase, 'execute').mockRejectedValueOnce(
-            new UserNotFoundError(faker.string.uuid()),
-        )
+        import.meta.jest
+            .spyOn(updateUserUseCase, 'execute')
+            .mockRejectedValueOnce(new UserNotFoundError(faker.string.uuid()))
 
         // act
         const result = await sut.execute(httpRequest)

@@ -56,7 +56,7 @@ describe('Update Transaction Repository', () => {
         await prisma.transaction.create({
             data: { ...transaction, user_id: user.id },
         })
-        const prismaSpy = jest.spyOn(prisma.transaction, 'update')
+        const prismaSpy = import.meta.jest.spyOn(prisma.transaction, 'update')
         const sut = new PostgresUpdateTransactionRepository()
 
         // act
@@ -74,9 +74,9 @@ describe('Update Transaction Repository', () => {
     it('should throw if Prisma throws', async () => {
         // arrange
         const sut = new PostgresUpdateTransactionRepository()
-        jest.spyOn(prisma.transaction, 'update').mockRejectedValueOnce(
-            new Error(),
-        )
+        import.meta.jest
+            .spyOn(prisma.transaction, 'update')
+            .mockRejectedValueOnce(new Error())
 
         // act
         const promise = sut.execute(transaction.id, transaction)
@@ -88,10 +88,12 @@ describe('Update Transaction Repository', () => {
     it('should throw TransactionNotFoundError if Prisma throws P2025 error', async () => {
         // arrange
         const sut = new PostgresUpdateTransactionRepository()
-        jest.spyOn(prisma.transaction, 'update').mockRejectedValueOnce({
-            name: 'PrismaClientKnownRequestError',
-            code: 'P2025',
-        })
+        import.meta.jest
+            .spyOn(prisma.transaction, 'update')
+            .mockRejectedValueOnce({
+                name: 'PrismaClientKnownRequestError',
+                code: 'P2025',
+            })
 
         // act
         const promise = sut.execute(transaction.id, transaction)
