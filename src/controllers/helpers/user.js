@@ -1,6 +1,11 @@
-import { notFound } from './http.js'
+import { notFound, unauthorized } from './http.js'
 
 export const userNotFoundResponse = () =>
     notFound({
         message: 'User not found',
+    })
+
+export const userUnauthorizedResponse = () =>
+    unauthorized({
+        message: 'User unauthorized',
     })
