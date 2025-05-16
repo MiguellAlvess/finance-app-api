@@ -6,6 +6,7 @@ import {
     makeGetUserBalanceController,
     makeGetUserByIdController,
     makeUpdateUserController,
+    makeLoginUserController,
 } from '../factories/controllers/user.js'
 
 export const usersRouter = Router()
@@ -46,6 +47,14 @@ usersRouter.delete('/:userId', async (req, res) => {
     const deleteUserController = makeDeleteUserController()
 
     const { statusCode, body } = await deleteUserController.execute(req)
+
+    res.status(statusCode).send(body)
+})
+
+usersRouter.post('/login', async (req, res) => {
+    const loginUserController = makeLoginUserController()
+
+    const { statusCode, body } = await loginUserController.execute(req)
 
     res.status(statusCode).send(body)
 })
