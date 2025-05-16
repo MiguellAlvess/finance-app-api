@@ -1,6 +1,6 @@
 import { LoginUserController } from './login-user.js'
 import { user } from '../../tests/index.js'
-import { InvalidPasswordError } from '../../errors/user.js'
+import { InvalidPasswordError, UserNotFoundError } from '../../errors/index.js'
 
 describe('Login User Controller', () => {
     const httpRequest = {
@@ -49,5 +49,16 @@ describe('Login User Controller', () => {
         const result = await sut.execute(httpRequest)
 
         expect(result.statusCode).toBe(401)
+    })
+
+    it('should return 404 if user is not found', async () => {
+        const { sut, loginUserUseCase } = makeSut()
+        import.meta.jest
+            .spyOn(loginUserUseCase, 'execute')
+            .mockRejectedValueOnce(new UserNotFoundError())
+
+        const result = await sut.execute(httpRequest)
+
+        expect(result.statusCode).toBe(404)
     })
 })
