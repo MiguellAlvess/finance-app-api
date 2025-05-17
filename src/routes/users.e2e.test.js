@@ -82,29 +82,38 @@ describe('User Routes E2E Tests', () => {
                 id: undefined,
             })
 
-        await supertest(app).post('/api/transactions').send({
-            user_id: createdUser.id,
-            name: faker.commerce.productName(),
-            date: faker.date.anytime().toISOString(),
-            type: 'EARNING',
-            amount: 10000,
-        })
+        await supertest(app)
+            .post('/api/transactions')
+            .set('Authorization', `Bearer ${createdUser.tokens.acessToken}`)
+            .send({
+                user_id: createdUser.id,
+                name: faker.commerce.productName(),
+                date: faker.date.anytime().toISOString(),
+                type: 'EARNING',
+                amount: 10000,
+            })
 
-        await supertest(app).post('/api/transactions').send({
-            user_id: createdUser.id,
-            name: faker.commerce.productName(),
-            date: faker.date.anytime().toISOString(),
-            type: 'EXPENSE',
-            amount: 2000,
-        })
+        await supertest(app)
+            .post('/api/transactions')
+            .set('Authorization', `Bearer ${createdUser.tokens.acessToken}`)
+            .send({
+                user_id: createdUser.id,
+                name: faker.commerce.productName(),
+                date: faker.date.anytime().toISOString(),
+                type: 'EXPENSE',
+                amount: 2000,
+            })
 
-        await supertest(app).post('/api/transactions').send({
-            user_id: createdUser.id,
-            name: faker.commerce.productName(),
-            date: faker.date.anytime().toISOString(),
-            type: 'INVESTMENT',
-            amount: 2000,
-        })
+        await supertest(app)
+            .post('/api/transactions')
+            .set('Authorization', `Bearer ${createdUser.tokens.acessToken}`)
+            .send({
+                user_id: createdUser.id,
+                name: faker.commerce.productName(),
+                date: faker.date.anytime().toISOString(),
+                type: 'INVESTMENT',
+                amount: 2000,
+            })
 
         const response = await supertest(app)
             .get(`/api/users/balance`)
