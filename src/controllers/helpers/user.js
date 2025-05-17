@@ -1,4 +1,4 @@
-import { notFound, unauthorized } from './http.js'
+import { notFound, unauthorized, forbidden } from './http.js'
 
 export const userNotFoundResponse = () =>
     notFound({
@@ -8,4 +8,9 @@ export const userNotFoundResponse = () =>
 export const userUnauthorizedResponse = () =>
     unauthorized({
         message: 'User unauthorized',
+    })
+
+export const forbiddenResponse = () =>
+    forbidden({
+        message: 'Forbidden',
     })

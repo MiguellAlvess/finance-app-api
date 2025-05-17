@@ -13,6 +13,11 @@ export const created = (body) => ({
     body,
 })
 
+export const forbidden = (body) => ({
+    statusCode: 403,
+    body,
+})
+
 export const serverError = () => ({
     statusCode: 500,
     body: {
