@@ -15,7 +15,7 @@ describe('User Routes E2E Tests', () => {
         expect(response.status).toBe(201)
     })
 
-    it('GET /api/users/:userId should return 200 when user is found', async () => {
+    it('GET /api/users should return 200 when user is found', async () => {
         const { body: createdUser } = await supertest(app)
             .post('/api/users')
             .send({
@@ -24,14 +24,14 @@ describe('User Routes E2E Tests', () => {
             })
 
         const response = await supertest(app)
-            .get(`/api/users/${createdUser.id}`)
+            .get(`/api/users`)
             .set('Authorization', `Bearer ${createdUser.tokens.acessToken}`)
 
         expect(response.status).toBe(200)
         expect(response.body.id).toBe(createdUser.id)
     })
 
-    it('PATCH /api/users/:userId should return 200 when user is updated', async () => {
+    it('PATCH /api/users should return 200 when user is updated', async () => {
         const { body: createdUser } = await supertest(app)
             .post('/api/users')
             .send({
@@ -47,7 +47,7 @@ describe('User Routes E2E Tests', () => {
         }
 
         const response = await supertest(app)
-            .patch(`/api/users/${createdUser.id}`)
+            .patch(`/api/users`)
             .set('Authorization', `Bearer ${createdUser.tokens.acessToken}`)
             .send(updateUserParams)
 
@@ -58,7 +58,7 @@ describe('User Routes E2E Tests', () => {
         expect(response.body.password).not.toBe(createdUser.password)
     })
 
-    it('DELETE /api/users/:userId should return 200 when user is deleted', async () => {
+    it('DELETE /api/users should return 200 when user is deleted', async () => {
         const { body: createdUser } = await supertest(app)
             .post('/api/users')
             .send({
@@ -67,14 +67,14 @@ describe('User Routes E2E Tests', () => {
             })
 
         const response = await supertest(app)
-            .delete(`/api/users/${createdUser.id}`)
+            .delete(`/api/users`)
             .set('Authorization', `Bearer ${createdUser.tokens.acessToken}`)
 
         expect(response.status).toBe(200)
         expect(response.body.id).toBe(createdUser.id)
     })
 
-    it('GET /api/users/:userId/balance should return 200 and correct balance', async () => {
+    it('GET /api/users/balance should return 200 and correct balance', async () => {
         const { body: createdUser } = await supertest(app)
             .post('/api/users')
             .send({
@@ -107,7 +107,7 @@ describe('User Routes E2E Tests', () => {
         })
 
         const response = await supertest(app)
-            .get(`/api/users/${createdUser.id}/balance`)
+            .get(`/api/users/balance`)
             .set('Authorization', `Bearer ${createdUser.tokens.acessToken}`)
 
         expect(response.status).toBe(200)
