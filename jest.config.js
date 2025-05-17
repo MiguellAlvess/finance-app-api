@@ -14,6 +14,8 @@ const config = {
     globalSetup: '<rootDir>/jest.global-setup.js',
 
     setupFilesAfterEnv: ['<rootDir>/jest.setup-after-env.js'],
+
+    watchPathIgnorePatterns: ['.postgres-data'],
 }
 
 export default config
