@@ -1,3 +1,4 @@
+import { UnauthorizedError } from '../../errors'
 import { RefreshTokenController } from './refresh-token'
 
 describe('Refresh Token Controller', () => {
@@ -43,5 +44,24 @@ describe('Refresh Token Controller', () => {
         const response = await sut.execute(httpRequest)
 
         expect(response.statusCode).toBe(400)
+    })
+
+    it('should return 401 if use case throws UnauthorizedError', async () => {
+        const { sut, refreshTokenUseCase } = makeSut()
+        import.meta.jest
+            .spyOn(refreshTokenUseCase, 'execute')
+            .mockImplementationOnce(() => {
+                throw new UnauthorizedError()
+            })
+
+        const httpRequest = {
+            body: {
+                refreshToken: 'any_refresh_token',
+            },
+        }
+
+        const response = await sut.execute(httpRequest)
+
+        expect(response.statusCode).toBe(401)
     })
 })
