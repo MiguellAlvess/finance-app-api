@@ -4,6 +4,8 @@ import { faker } from '@faker-js/faker'
 import { transaction, user } from '../tests/index.js'
 
 describe('Transactions Routes E2E Tests', () => {
+    const from = '2025-05-19'
+    const to = '2025-05-30'
     it('POST /api/transactions should return 201 when transaction is created', async () => {
         const { body: createdUser } = await supertest(app)
             .post('/api/users')
@@ -46,7 +48,7 @@ describe('Transactions Routes E2E Tests', () => {
             })
 
         const response = await supertest(app)
-            .get(`/api/transactions`)
+            .get(`/api/transactions?from=${from}&to=${to}`)
             .set('Authorization', `Bearer ${createdUser.tokens.acessToken}`)
 
         expect(response.status).toBe(200)
