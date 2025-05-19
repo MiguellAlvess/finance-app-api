@@ -16,7 +16,10 @@ jobs:
                   node-version: '20'
 
             - name: Create .env.test file
-              run: echo "DATABASE_URL=postgresql://postgres:password@localhost:5433/finance-app" >> .env.test
+              run: |
+                  echo "DATABASE_URL=postgresql://postgres:password@localhost:5433/finance-app" >> .env.test
+                  echo "JWT_ACESS_TOKEN_SECRET=secret" >> .env.test
+                  echo "JWT_REFRESH_TOKEN_SECRET=secret2" >> .env.test
 
             - name: Install dependencies
               run: npm ci --include=dev
@@ -50,6 +53,8 @@ jobs:
               uses: SpicyPizza/create-envfile@v2.0
               with:
                   envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+                  envkey_JWT_ACESS_TOKEN_SECRET: ${{ secrets.JWT_ACESS_TOKEN_SECRET }}
+                  envkey_JWT_REFRESH_TOKEN_SECRET: ${{ secrets.JWT_REFRESH_TOKEN_SECRET }}
 
             - name: Run migrations
               run: npx prisma migrate deploy
