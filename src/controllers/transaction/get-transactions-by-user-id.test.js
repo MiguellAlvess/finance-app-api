@@ -134,6 +134,6 @@ describe('Get Transactions By User ID', () => {
         })
 
         // assert
-        expect(executeSpy).toHaveBeenCalledWith(userId)
+        expect(executeSpy).toHaveBeenCalledWith(userId, from, to)
     })
 })

@@ -43,6 +43,7 @@ describe('Transactions Routes E2E Tests', () => {
             .set('Authorization', `Bearer ${createdUser.tokens.acessToken}`)
             .send({
                 ...transaction,
+                date: new Date(from),
                 user_id: createdUser.id,
                 id: undefined,
             })
