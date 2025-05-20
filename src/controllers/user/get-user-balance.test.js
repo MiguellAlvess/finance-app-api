@@ -20,6 +20,10 @@ describe('Get User Balance Controller', () => {
         params: {
             userId: faker.string.uuid(),
         },
+        query: {
+            from: '2025-01-01',
+            to: '2025-01-31',
+        },
     }
 
     it('should return 200 when getting user balance', async () => {
@@ -42,6 +46,7 @@ describe('Get User Balance Controller', () => {
             params: {
                 userId: 'invalid_id',
             },
+            query: httpRequest.query,
         })
 
         // assert
@@ -88,6 +93,10 @@ describe('Get User Balance Controller', () => {
         await sut.execute(httpRequest)
 
         // assert
-        expect(executeSpy).toHaveBeenCalledWith(httpRequest.params.userId)
+        expect(executeSpy).toHaveBeenCalledWith(
+            httpRequest.params.userId,
+            httpRequest.query.from,
+            httpRequest.query.to,
+        )
     })
 })
