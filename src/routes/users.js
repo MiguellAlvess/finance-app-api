@@ -13,7 +13,7 @@ import { auth } from '../middlewares/auth.js'
 
 export const usersRouter = Router()
 
-usersRouter.get('/', auth, async (req, res) => {
+usersRouter.get('/me', auth, async (req, res) => {
     const getUserByIdController = makeGetUserByIdController()
 
     const { statusCode, body } = await getUserByIdController.execute({
@@ -26,7 +26,7 @@ usersRouter.get('/', auth, async (req, res) => {
     res.status(statusCode).send(body)
 })
 
-usersRouter.get('/balance', auth, async (req, res) => {
+usersRouter.get('/me/balance', auth, async (req, res) => {
     const getUserBalanceController = makeGetUserBalanceController()
 
     const { statusCode, body } = await getUserBalanceController.execute({
@@ -51,7 +51,7 @@ usersRouter.post('/', async (req, res) => {
     res.status(statusCode).send(body)
 })
 
-usersRouter.patch('/', auth, async (req, res) => {
+usersRouter.patch('/me', auth, async (req, res) => {
     const updateUserController = makeUpdateUserController()
 
     const { statusCode, body } = await updateUserController.execute({
@@ -64,7 +64,7 @@ usersRouter.patch('/', auth, async (req, res) => {
     res.status(statusCode).send(body)
 })
 
-usersRouter.delete('/', auth, async (req, res) => {
+usersRouter.delete('/me', auth, async (req, res) => {
     const deleteUserController = makeDeleteUserController()
 
     const { statusCode, body } = await deleteUserController.execute({
@@ -77,7 +77,7 @@ usersRouter.delete('/', auth, async (req, res) => {
     res.status(statusCode).send(body)
 })
 
-usersRouter.post('/login', async (req, res) => {
+usersRouter.post('/auth/login', async (req, res) => {
     const loginUserController = makeLoginUserController()
 
     const { statusCode, body } = await loginUserController.execute(req)
@@ -85,7 +85,7 @@ usersRouter.post('/login', async (req, res) => {
     res.status(statusCode).send(body)
 })
 
-usersRouter.post('/refresh-token', async (req, res) => {
+usersRouter.post('/auth/refresh-token', async (req, res) => {
     const refreshTokenController = makeRefreshTokenController()
 
     const { statusCode, body } = await refreshTokenController.execute(req)
