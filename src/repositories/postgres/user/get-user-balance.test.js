@@ -4,6 +4,8 @@ import { user as fakeUser } from '../../../tests/index.js'
 import { PostgresGetUserBalanceRepository } from './get-user-balance.js'
 
 describe('Get User Balance Repository', () => {
+    const from = '2025-01-01'
+    const to = '2025-01-31'
     it('should get user balance on db', async () => {
         // assert
         const user = await prisma.user.create({
@@ -15,20 +17,20 @@ describe('Get User Balance Repository', () => {
                 {
                     name: faker.string.sample(),
                     user_id: user.id,
-                    date: faker.date.anytime(),
+                    date: new Date(from),
                     amount: 10000,
                     type: 'EARNING',
                 },
                 {
                     name: faker.string.sample(),
                     user_id: user.id,
-                    date: faker.date.anytime(),
+                    date: new Date(to),
                     amount: 2000,
                     type: 'EXPENSE',
                 },
                 {
                     name: faker.string.sample(),
-                    date: faker.date.anytime(),
+                    date: new Date(to),
                     user_id: user.id,
                     amount: 6000,
                     type: 'INVESTMENT',
@@ -38,7 +40,7 @@ describe('Get User Balance Repository', () => {
         const sut = new PostgresGetUserBalanceRepository()
 
         // act
-        const result = await sut.execute(user.id)
+        const result = await sut.execute(user.id, from, to)
 
         // assert
         expect(result.earnings.toString()).toBe('10000')
@@ -56,7 +58,7 @@ describe('Get User Balance Repository', () => {
         )
 
         // act
-        await sut.execute(fakeUser.id)
+        await sut.execute(fakeUser.id, from, to)
 
         // assert
         expect(prismaSpy).toHaveBeenCalledTimes(3)
@@ -64,6 +66,10 @@ describe('Get User Balance Repository', () => {
             where: {
                 user_id: fakeUser.id,
                 type: 'EXPENSE',
+                date: {
+                    gte: new Date(from),
+                    lte: new Date(to),
+                },
             },
             _sum: {
                 amount: true,
@@ -73,6 +79,10 @@ describe('Get User Balance Repository', () => {
             where: {
                 user_id: fakeUser.id,
                 type: 'EARNING',
+                date: {
+                    gte: new Date(from),
+                    lte: new Date(to),
+                },
             },
             _sum: {
                 amount: true,
@@ -82,6 +92,10 @@ describe('Get User Balance Repository', () => {
             where: {
                 user_id: fakeUser.id,
                 type: 'INVESTMENT',
+                date: {
+                    gte: new Date(from),
+                    lte: new Date(to),
+                },
             },
             _sum: {
                 amount: true,
@@ -97,7 +111,7 @@ describe('Get User Balance Repository', () => {
             .mockRejectedValueOnce(new Error())
 
         // act
-        const promise = sut.execute(fakeUser.id)
+        const promise = sut.execute(fakeUser.id, from, to)
 
         // assert
         await expect(promise).rejects.toThrow()
