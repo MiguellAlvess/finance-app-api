@@ -235,6 +235,30 @@
             "get": {
                 "tags": ["Users"],
                 "summary": "Get authenticated user balance",
+                "parameters": [
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "description": "Start date for the transaction query (format: YYYY-MM-DD)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-05-05"
+                        }
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "description": "End date for the transaction query (format: YYYY-MM-DD)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-05-05"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "User balance found",
