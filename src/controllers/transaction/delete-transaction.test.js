@@ -28,6 +28,7 @@ describe('Delete Transaction Controller', () => {
         const response = await sut.execute({
             params: {
                 transactionId: faker.string.uuid(),
+                user_id: faker.string.uuid(),
             },
         })
 
@@ -43,6 +44,7 @@ describe('Delete Transaction Controller', () => {
         const response = await sut.execute({
             params: {
                 transactionId: 'invalid_id',
+                user_id: faker.string.uuid(),
             },
         })
 
@@ -61,6 +63,7 @@ describe('Delete Transaction Controller', () => {
         const response = await sut.execute({
             params: {
                 transactionId: faker.string.uuid(),
+                user_id: faker.string.uuid(),
             },
         })
 
@@ -79,6 +82,7 @@ describe('Delete Transaction Controller', () => {
         const response = await sut.execute({
             params: {
                 transactionId: faker.string.uuid(),
+                user_id: faker.string.uuid(),
             },
         })
 
