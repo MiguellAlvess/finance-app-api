@@ -53,7 +53,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/api/users/me": {
             "get": {
                 "tags": ["Users"],
                 "summary": "Get authenticated user",
@@ -111,15 +113,8 @@
             },
             "patch": {
                 "tags": ["Users"],
-                "summary": "Update user by ID",
+                "summary": "Update authenticated user",
                 "parameters": [
-                    {
-                        "in": "path",
-                        "name": "userId",
-                        "required": true,
-                        "type": "string",
-                        "description": "ID of the user to update"
-                    },
                     {
                         "name": "user",
                         "required": true,
@@ -157,7 +152,7 @@
                 }
             }
         },
-        "/api/users/login": {
+        "/api/users/auth/login": {
             "post": {
                 "summary": "Login User",
                 "tags": ["Users"],
@@ -194,7 +189,7 @@
                 }
             }
         },
-        "/api/users/refreshToken": {
+        "/api/users/auth/refreshToken": {
             "post": {
                 "summary": "Refresh User Token",
                 "tags": ["Users"],
@@ -231,7 +226,7 @@
                 }
             }
         },
-        "/api/users/balance": {
+        "/api/users/me/balance": {
             "get": {
                 "tags": ["Users"],
                 "summary": "Get authenticated user balance",
