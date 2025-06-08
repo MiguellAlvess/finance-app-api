@@ -4,7 +4,7 @@ API desenvolvida para o controle de finanças pessoais. Ela permite o gerenciame
 
 ## Tecnologias
 
-- **Node.js** & Express.js – backend e rotas
+- **Node.js** & **Express.js** – backend e rotas
 - **PostgreSQL** – banco de dados relacional
 - **Prisma ORM** – ORM para integração com o banco de dados
 - **Docker** – containerização da aplicação
