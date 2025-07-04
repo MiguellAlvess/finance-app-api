@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import { usersRouter, transactionsRouter } from './routes/index.js'
 import swaggerUi from 'swagger-ui-express'
 import fs from 'fs'
@@ -10,6 +11,7 @@ const __dirname = dirname(__filename)
 
 const app = express()
 
+app.use(cors({ origin: 'http://localhost:5173' }))
 app.use(express.json())
 
 app.use('/api/users', usersRouter)
