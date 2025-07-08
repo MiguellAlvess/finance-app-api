@@ -189,7 +189,7 @@
                 }
             }
         },
-        "/api/users/auth/refreshToken": {
+        "/api/users/auth/refresh-token": {
             "post": {
                 "summary": "Refresh User Token",
                 "tags": ["Users"],
